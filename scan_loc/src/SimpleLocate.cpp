@@ -43,33 +43,6 @@ using namespace tf2_ros;
 #define GetCurrentDir _getcwd
 
 
-/*
-class MinimalPublisher : public rclcpp::Node
-{
-public:
-  MinimalPublisher()
-  : Node("transform_publisher"), count_(0)
-  {
-    publisher_ = this->create_publisher<std_msgs::msg::String>("topic", 10);
-    timer_ = this->create_wall_timer(
-      500ms, std::bind(&MinimalPublisher::timer_callback, this));
-  }
-
-private:
-  void timer_callback()
-  {
-    auto message = std_msgs::msg::String();
-    message.data = "Hello, world! " + std::to_string(count_++);
-    //message.data = get_transform_matrix();
-    RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
-    publisher_->publish(message);
-  }
-  rclcpp::TimerBase::SharedPtr timer_;
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
-  size_t count_;
-};
-*/
-
 std::string get_current_dir() {
    char buff[FILENAME_MAX]; //create string buffer to hold path
    GetCurrentDir( buff, FILENAME_MAX );
@@ -95,7 +68,8 @@ TransformationMatrix4x4 get_transform_matrix()
     */
 
     SceneSource Scene;
-    Scene = SceneSource::PhoXi("2019-08-079-LC3");
+    
+    Scene = SceneSource::PhoXi("2019-08-079-LC3"); // INSERT SCANNER ID!!
     //Scene = SceneSource::PhoXi("InstalledExamples-basic-example");
     /*
     try {
@@ -114,7 +88,7 @@ TransformationMatrix4x4 get_transform_matrix()
     //Localization->LoadLocalizationConfiguration("C:/dev/ros2_eloquent/dev_ws/install/scan_loc/include/T-fittings/T-fitting.plcf");
     
     //Localization->LoadLocalizationConfiguration("scan_loc/include/T-fittings/T-fitting.plcf");
-    Localization->LoadLocalizationConfiguration("C:/dev/ros2_eloquent/dev_ws/install/scan_loc/include/T-fittings/kaross.plcf");
+    Localization->LoadLocalizationConfiguration("C:/dev/ros2_eloquent/dev_ws/install/scan_loc/include/T-fittings/kaross.plcf"); //INSERT PATH TO PLCF FILE, DYNAMIC LINK HAVE BEEN TROUBLESOME
 
     Localization->SetSceneSource(Scene);
 
@@ -233,7 +207,7 @@ int main(int argc, char * argv[])
     
     
     std::ofstream myfile;
-    myfile.open ("C:/dev/ros2_eloquent/testresults.txt", std::ios::app);
+    myfile.open ("C:/dev/ros2_eloquent/testresults.txt", std::ios::app); //INSERT FILENAME TO SAVE TESTRESULTS TO
     myfile << sss.str();
     myfile.close();
     
